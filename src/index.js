@@ -1,35 +1,17 @@
 import React from 'react';
-
+import * as Parse from './parse';
 
 export default function Extract({
     key = 'extracted',
     fallbackName = 'default',
 } = {}) {
     return (Component) => {
-        return class Extraction extends React.Component {
-            getName({ displayName, type }) {
-                return (displayName || type.displayName || type.name || fallbackName)
-                    .replace(/ /g, '_').toLowerCase();
-            }
-            parseChildren() {
-                const extract = {};
-                React.Children.forEach(this.props.children, (child) => {
-                    const name = this.getName(child);
+        if (!React.isValidElement(<Component />)) {
+            return console.error('A valid React Componenet not found'); // eslint-disable-line no-console
+        }
 
-                    if (name) {
-                        if (!extract[name]) {
-                            extract[name] = [];
-                        }
-                        extract[name].push(child);
-                    } else {
-                        console.error('No name given for child');
-                    }
-                });
-                return { [key]: extract };
-            }
-            render() {
-                return (<Component {...this.props} {...this.parseChildren()} />);
-            }
-        };
+        return (props) => React.cloneElement(<Component />, Object.assign({}, props, {
+            [key]: Parse.children(props.children, fallbackName),
+        }));
     };
 }
