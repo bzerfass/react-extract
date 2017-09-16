@@ -1,6 +1,6 @@
 {
   "name": "react-extract",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Property Extraction",
   "main": "dist/index.js",
   "scripts": {
