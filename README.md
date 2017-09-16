@@ -59,6 +59,6 @@ Clones a react component and adds a property object to the component. Options sh
 
 ##### Parameters
 | Option | type | descriptions |
-| ---------------------------- |
+| -------|------|------------- |
 | `key`  | string | Control the name of the prop passed to the component (defaults to `extract`)|
 | `fallbackName`  | string | Control name given to the components that a name can not be generated from component (defaults to `default`)|
